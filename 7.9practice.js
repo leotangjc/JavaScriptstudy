@@ -147,14 +147,69 @@
 
 //this
 //这个就是用于设定作用域的，可将变量在外部进行设置，如：
-var a = {
-  birth: 1995,
-  Age: function () {
-    var b = this.birth;
-    var fn = () => new Date().getFullYear() - this.birth;
-    return fn();
+// var a = {
+//   birth: 1995,
+//   Age: function () {
+//     var b = this.birth;
+//     var fn = () => new Date().getFullYear() - this.birth;
+//     return fn();
+//   }
+// };
+// console.log(a.Age());
+
+
+
+
+//genertor
+function* fib(max) {
+  var
+      t,
+      a = 0,
+      b = 1,
+      n = 1;
+  while (n<max){
+    yield a;
+    t = a + b;
+    a = b;
+    b = t;
+    n++;
   }
-};
-console.log(a.Age());
+  return a;
+}
+
+for (var x of fib(5)) {
+  console.log(x);
+}
 
 
+
+
+
+
+//练习
+//生成一个自增的ID，可以编写一个next_id()函数
+function* next_id() {
+
+
+  var current_id = 1;
+  while(true) {
+    yield current_id;
+    current_id++;
+  }
+}
+
+// 测试:
+var
+    x,
+    pass = true,
+    g = next_id();
+for (x = 1; x < 100; x ++) {
+  if (g.next().value !== x) {
+    pass = false;
+    alert('测试失败!');
+    break;
+  }
+}
+if (pass) {
+  alert('测试通过!');
+}
